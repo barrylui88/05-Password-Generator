@@ -31,8 +31,10 @@ let includeNumbers = false;
 let includeSpecial = false;
 //// Character Type Selection Array
 let characterTypeArr = [];
-//// Generated Password Character Array
-let generatedPasswordArr = [];
+//// Generated Character Types Array
+let generatedCharacterTypesArr = [];
+//// Generated Password Array
+let generatedPasswordArray = [];
 //// Generated Password Variable
 let generatedPassword = "";
 
@@ -94,10 +96,39 @@ function getRandom(arr) {
   return arr[arrRandomIndex];
 }
 
+//// Callback Function to map random number to random character type.
+function mapCharacterType (x) {
+  console.log(characterTypeArr[x]);
+  return characterTypeArr[x];
+}
+
+//// Callback Function to map character type to random character of that type.
+function mapCharacter (x) {
+  if (x = "LC") {
+    return getRandom(lowerCasedCharacters);
+  } else if (x = "UC") {
+    return getRandom(upperCasedCharacters);
+  } else if (x = "NU") {
+    return getRandom(numericCharacters);
+  } else if (x = "SP") {
+    return getRandom(specialCharacters);
+  }
+}
+
 //// Function to generate password with user input
 function generatePassword() {
-  //// Generate a random number (range depends on which character types have been selected)
+  //// Generate a random number (range depends on number of character types selected) for each index of the generated password array.
+  for (i=0; i<lengthOfPassword; i++) {
+    generatedCharacterTypesArr.push(Math.floor(Math.random()*characterTypeArr.length));
+  }
+  //// Check that every character type specified has been picked, otherwise rerun.
+  let uniqueChars = [...new Set(generatedCharacterTypesArr)];
+  if (uniqueChars.length < characterTypeArr.length) {
+    generatePassword();
+    return;
+  }
   //// Based on the number generated, convert it to an according character of that type.
+  generatedPasswordArray = generatedCharacterTypesArr.map(mapCharacterType);
   //// Update this as the Generated Password and return the value
 }
 
@@ -106,6 +137,7 @@ function generatePassword() {
 alert(introMessage);
 getPasswordLength();
 getPasswordCharacterTypes();
+generatePassword();
 
 //// Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
