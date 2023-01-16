@@ -18,13 +18,21 @@ var upperCasedCharacters = ['A','B','C','D','E','F','G','H','I','J','K','L','M',
 ];
 
 //// Length of Password Variable
+let lengthOfPassword = "";
 //// Include Lowercase Characters Boolean
+let includeLowercase = false;
 //// Include Uppercase Characters Boolean
+let includeUpperCase = false;
 //// Include Numbers Boolean
+let includeNumbers = false;
 //// Include Special Characters Boolean
+let includeSpecial = false;
 //// Character Type Selection Array
+let characterTypeArr = [];
 //// Generated Password Character Array
+let generatedPasswordArr = [];
 //// Generated Password Variable
+let generatedPassword = "";
 
 // FUNCTIONS
 
