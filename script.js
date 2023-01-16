@@ -17,8 +17,6 @@ var lowerCasedCharacters = [
 var upperCasedCharacters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
 ];
 
-//// Introduction to Password Generator Message
-let introMessage = "Welcome to my Password Generator! Please respond to the following series of questions and we will generate a password for you based on your criteria.";
 //// Length of Password Variable
 let lengthOfPassword = "";
 //// Include Lowercase Characters Boolean
@@ -98,7 +96,6 @@ function getRandom(arr) {
 
 //// Callback Function to map random number to random character type.
 function mapCharacterType (x) {
-  console.log(characterTypeArr[x]);
   return characterTypeArr[x];
 }
 
@@ -117,6 +114,8 @@ function mapCharacter (x) {
 
 //// Function to generate password with user input
 function generatePassword() {
+  getPasswordLength();
+  getPasswordCharacterTypes();
   //// Generate a random number (range depends on number of character types selected) for each index of the generated password array.
   for (i=0; i<lengthOfPassword; i++) {
     generatedCharacterTypesArr.push(Math.floor(Math.random()*characterTypeArr.length));
@@ -131,14 +130,10 @@ function generatePassword() {
   generatedPasswordArray = generatedCharacterTypesArr.map(mapCharacterType);
   generatedPasswordArray = generatedPasswordArray.map(mapCharacter);
   //// Update this as the Generated Password and return the value
+  generatedPassword = generatedPasswordArray.join("");
+  //// Return the generated password
+  return generatedPassword;
 }
-
-//// CALL FUNCTIONS
-//// Introduction to Password Generator
-alert(introMessage);
-getPasswordLength();
-getPasswordCharacterTypes();
-generatePassword();
 
 //// Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
