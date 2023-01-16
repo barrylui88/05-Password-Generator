@@ -104,13 +104,13 @@ function mapCharacterType (x) {
 
 //// Callback Function to map character type to random character of that type.
 function mapCharacter (x) {
-  if (x = "LC") {
+  if (x == "LC") {
     return getRandom(lowerCasedCharacters);
-  } else if (x = "UC") {
+  } else if (x == "UC") {
     return getRandom(upperCasedCharacters);
-  } else if (x = "NU") {
+  } else if (x == "NU") {
     return getRandom(numericCharacters);
-  } else if (x = "SP") {
+  } else if (x == "SP") {
     return getRandom(specialCharacters);
   }
 }
@@ -129,6 +129,7 @@ function generatePassword() {
   }
   //// Based on the number generated, convert it to an according character of that type.
   generatedPasswordArray = generatedCharacterTypesArr.map(mapCharacterType);
+  generatedPasswordArray = generatedPasswordArray.map(mapCharacter);
   //// Update this as the Generated Password and return the value
 }
 
