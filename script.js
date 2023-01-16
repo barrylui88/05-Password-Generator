@@ -24,7 +24,7 @@ let lengthOfPassword = "";
 //// Include Lowercase Characters Boolean
 let includeLowercase = false;
 //// Include Uppercase Characters Boolean
-let includeUpperCase = false;
+let includeUppercase = false;
 //// Include Numbers Boolean
 let includeNumbers = false;
 //// Include Special Characters Boolean
@@ -55,14 +55,33 @@ function getPasswordLength() {
 }
 
 //// Function to get Character Types
-function getPasswordCharaterTypes() {
+function getPasswordCharacterTypes() {
   //// Ask whether lowercase characters should be included
+  includeLowercase = confirm("Should the password include lowercase letters?\n(Select \"OK\" if YES, or select \"Cancel\" if NOT.)");
+  if (includeLowercase) {includeLowercase = "LC"};
   //// Ask whether uppercase characters should be included
+  includeUppercase = confirm("Should the password include uppercase letters?\n(Select \"OK\" if YES, or select \"Cancel\" if NOT.)");
+  if (includeUppercase) {includeUppercase = "UC"};
   //// Ask whether numbers should be included
+  includeNumbers = confirm("Should the password include numbers?\n(Select \"OK\" if YES, or select \"Cancel\" if NOT.)");
+  if (includeNumbers) {includeNumbers = "NU"};
   //// Ask whether special characters should be included
+  includeSpecial = confirm("Should the password include special characters?\n(Select \"OK\" if YES, or select \"Cancel\" if NOT.)");
+  if (includeSpecial) {includeSpecial = "SP"};
   //// Check whether at least one of the above is 'true'
-  //// If not, display error and ask again
+  if (!includeLowercase && !includeUppercase && !includeNumbers && !includeSpecial) {
+    //// If not, display error and ask again
+    alert("You must include one of the character types. Please select at least one of them.");
+    getPasswordCharacterTypes();
+    return;
+  } else {
   //// Update the Character Type Selection Array
+  characterTypeArr.push(includeLowercase);
+  characterTypeArr.push(includeUppercase);
+  characterTypeArr.push(includeNumbers);
+  characterTypeArr.push(includeSpecial);
+  characterTypeArr = characterTypeArr.filter(Boolean);
+  }
 }
 
 //// Function for getting a random element from an array
@@ -86,7 +105,7 @@ function generatePassword() {
 //// Introduction to Password Generator
 alert(introMessage);
 getPasswordLength();
-getPasswordCharaterTypes();
+getPasswordCharacterTypes();
 
 //// Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
