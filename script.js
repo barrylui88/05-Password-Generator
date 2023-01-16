@@ -17,6 +17,8 @@ var lowerCasedCharacters = [
 var upperCasedCharacters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
 ];
 
+//// Introduction to Password Generator Message
+let introMessage = "Welcome to my Password Generator! Please respond to the following series of questions and we will generate a password for you based on your criteria.";
 //// Length of Password Variable
 let lengthOfPassword = "";
 //// Include Lowercase Characters Boolean
@@ -37,8 +39,23 @@ let generatedPassword = "";
 // FUNCTIONS
 
 //// Function to prompt user for password options
-function getPasswordOptions() {
+function getPasswordLength() {
   //// Ask for desired length of password
+  lengthOfPassword = parseInt(prompt("Enter the number of digits for the generated password (between 10 and 64 inclusive)."));
+  //// Check if desired length is a number AND between the specified range, otherwise ask again.
+  if (lengthOfPassword < 10 || lengthOfPassword > 64) {
+    alert("The number needs to be between 10 and 64 (inclusive). Please retry.");
+    getPasswordLength();
+    return;
+  } else if (isNaN(lengthOfPassword)) {
+    alert("The value entered is not a number. Please try.")
+    getPasswordLength();
+    return;
+  };
+}
+
+//// Function to get Character Types
+function getPasswordCharaterTypes() {
   //// Ask whether lowercase characters should be included
   //// Ask whether uppercase characters should be included
   //// Ask whether numbers should be included
@@ -50,9 +67,12 @@ function getPasswordOptions() {
 
 //// Function for getting a random element from an array
 function getRandom(arr) {
-  //// Find the length of the array.
-  //// Generate a random number and multiply it by the length of the array.
-  //// Return the random number'th' index of that array.
+  // Find the length of the array.
+  let arrLength = arr.length;
+  // Generate a random number and multiply it by the length of the array.
+  let arrRandomIndex = Math.floor(Math.random() * arrLength);
+  // Return the random number'th' index of that array.
+  return arr[arrRandomIndex];
 }
 
 //// Function to generate password with user input
@@ -61,6 +81,12 @@ function generatePassword() {
   //// Based on the number generated, convert it to an according character of that type.
   //// Update this as the Generated Password and return the value
 }
+
+//// CALL FUNCTIONS
+//// Introduction to Password Generator
+alert(introMessage);
+getPasswordLength();
+getPasswordCharaterTypes();
 
 //// Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
